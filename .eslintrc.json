@@ -7,7 +7,10 @@
   "overrides": [
     {
       "extends": ["xo-typescript", "prettier"],
-      "files": ["*.ts"]
+      "files": ["*.ts"],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": ["error", "interface"]
+      }
     },
     {
       "files": ["**/src/**/model/*.ts"],

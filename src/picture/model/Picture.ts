@@ -4,6 +4,7 @@ const pictureSchema = new Schema({
   title: {
     type: String,
     unique: true,
+    required: true,
   },
   author: {
     type: String,
@@ -16,6 +17,7 @@ const pictureSchema = new Schema({
   },
   pictureUrl: {
     type: String,
+    required: true,
   },
   isFavourite: {
     type: Boolean,
