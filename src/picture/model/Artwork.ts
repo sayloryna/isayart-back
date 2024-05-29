@@ -23,8 +23,8 @@ const artworkSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  size: [
-    {
+  size: {
+    type: {
       width: {
         type: Number,
       },
@@ -32,7 +32,7 @@ const artworkSchema = new Schema({
         type: Number,
       },
     },
-  ],
+  },
 });
 
 const Artwork = mongoose.model("Artwork", artworkSchema, "pictures");
