@@ -10,7 +10,9 @@
     "start": "node .",
     "start:dev": "node --watch .",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest",
+    "test:dev": "jest --watcAll",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",

@@ -35,6 +35,6 @@ const artworkSchema = new Schema({
   },
 });
 
-const Artwork = mongoose.model("Artwork", artworkSchema, "pictures");
+const Artwork = mongoose.model("Artwork", artworkSchema, "artworks");
 
 export default Artwork;
