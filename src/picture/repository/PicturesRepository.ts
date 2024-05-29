@@ -5,9 +5,9 @@ import { type PictureStructure } from "../types.js";
 class PictureRepository implements PictureRepositoryStructure {
   constructor(private readonly model: Model<PictureStructure>) {}
 
-  getAll = async (): Promise<void> => {
+  getAll = async (): Promise<PictureStructure[]> => {
     try {
-      await this.model.find().exec();
+      return await this.model.find().exec();
     } catch (error) {
       console.log((error as Error).message);
       throw error;
