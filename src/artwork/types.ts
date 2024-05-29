@@ -1,4 +1,5 @@
-export interface ArtworkStructure {
+interface ArtworkStructure {
+  _id: string;
   title: string;
   author: string;
   description: string;
@@ -10,3 +11,5 @@ export interface ArtworkStructure {
   };
   isFavourite: boolean;
 }
+
+export default ArtworkStructure;

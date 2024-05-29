@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
+import type ArtworkStructure from "../types";
 
-const artworkSchema = new Schema({
+const artworkSchema = new Schema<ArtworkStructure>({
   title: {
     type: String,
     unique: true,
@@ -15,26 +16,22 @@ const artworkSchema = new Schema({
   date: {
     type: String,
   },
+
   artworkUrl: {
     type: String,
     required: true,
   },
+  size: {
+    width: Number,
+    height: Number,
+  },
+
   isFavourite: {
     type: Boolean,
     default: false,
   },
-  size: {
-    type: {
-      width: {
-        type: Number,
-      },
-      height: {
-        type: Number,
-      },
-    },
-  },
 });
 
-const Artwork = mongoose.model("Artwork", artworkSchema, "pictures");
+const Artwork = mongoose.model("Artwork", artworkSchema, "artworks");
 
 export default Artwork;

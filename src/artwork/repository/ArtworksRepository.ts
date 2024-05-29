@@ -1,9 +1,9 @@
 import { type Model } from "mongoose";
-import { type ArtworksRepositoryStructure } from "./types";
-import { type ArtworkStructure } from "../types.js";
+import { type ArtworksRepositoryStructure } from "./types.js";
+import type ArtworkStructure from "../types.js";
 
 class ArtworksRepository implements ArtworksRepositoryStructure {
-  constructor(private readonly model: Model<ArtworkStructure>) {}
+  constructor(public readonly model: Model<ArtworkStructure>) {}
 
   getAll = async (): Promise<ArtworkStructure[]> => {
     try {

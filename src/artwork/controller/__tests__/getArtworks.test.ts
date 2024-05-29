@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 import { type ArtworksRepositoryStructure } from "../../repository/types";
-import { type ArtworkStructure } from "../../types";
 import ArtworksController from "../ArtworksController";
+import type ArtworkStructure from "../../types";
 
 describe("Given the getartworks method from artworksController", () => {
   beforeEach(() => {
@@ -17,6 +17,7 @@ describe("Given the getartworks method from artworksController", () => {
   describe("When it receives a Request and the repository contains the artwork 'La maja desnuda' by iker", () => {
     const artworks: ArtworkStructure[] = [
       {
+        _id: "",
         title: "La maja desnuda",
         author: "iker",
         description: "",
@@ -45,7 +46,7 @@ describe("Given the getartworks method from artworksController", () => {
     test("Then it should call the response json method with a list of artworks including 'La maja desnuda' by iker", async () => {
       await controller.getArtworks(req as Request, res as Response);
 
-      expect(res.json).toHaveBeenCalledWith({ artworks });
+      expect(res.json).toHaveBeenCalledWith(artworks);
     });
   });
 
