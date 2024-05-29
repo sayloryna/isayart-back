@@ -10,7 +10,7 @@ class PicturesController implements PicturesControllerStructure {
       const pictures = await this.picuresRepository.getAll();
       res.status(200).json({ pictures });
     } catch (error) {
-      res.status(404).json({ error: "failed to load Pictures" });
+      res.status(404).json({ error: "Failed to get Pictures" });
     }
   }
 }
