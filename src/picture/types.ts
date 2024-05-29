@@ -2,7 +2,7 @@ export interface PictureStructure {
   title: string;
   author: string;
   description: string;
-  date: Date;
+  date: string;
   pictureUrl: string;
   size: {
     width: number;
