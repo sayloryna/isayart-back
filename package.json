@@ -8,6 +8,7 @@
     "build": "tsc",
     "build:dev": "tsc -W",
     "start": "node .",
+    "start:dev": "node --watch .",
     "prepare": "husky"
   },
   "keywords": [],

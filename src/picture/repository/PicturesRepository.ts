@@ -6,7 +6,12 @@ class PictureRepository implements PictureRepositoryStructure {
   constructor(private readonly model: Model<PictureStructure>) {}
 
   getAll = async (): Promise<void> => {
-    await this.model.find().exec();
+    try {
+      await this.model.find().exec();
+    } catch (error) {
+      console.log((error as Error).message);
+      throw error;
+    }
   };
 }
 
