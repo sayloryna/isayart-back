@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const pictureSchema = new Schema({
+const artworkSchema = new Schema({
   title: {
     type: String,
     unique: true,
@@ -15,7 +15,7 @@ const pictureSchema = new Schema({
   date: {
     type: String,
   },
-  pictureUrl: {
+  artworkUrl: {
     type: String,
     required: true,
   },
@@ -35,6 +35,6 @@ const pictureSchema = new Schema({
   ],
 });
 
-const Picture = mongoose.model("Picture", pictureSchema, "pictures");
+const Artwork = mongoose.model("Artwork", artworkSchema, "pictures");
 
-export default Picture;
+export default Artwork;
