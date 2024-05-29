@@ -1,5 +1,5 @@
-import { type PictureStructure } from "../types";
+import { type ArtworkStructure } from "../types";
 
-export interface PictureRepositoryStructure {
-  getAll(): Promise<PictureStructure[]>;
+export interface ArtworksRepositoryStructure {
+  getAll(): Promise<ArtworkStructure[]>;
 }

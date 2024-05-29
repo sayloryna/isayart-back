@@ -1,9 +1,9 @@
-export interface PictureStructure {
+export interface ArtworkStructure {
   title: string;
   author: string;
   description: string;
   date: string;
-  pictureUrl: string;
+  artworkUrl: string;
   size: {
     width: number;
     heigtht: number;
