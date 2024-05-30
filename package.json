@@ -24,6 +24,7 @@
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
     "eslint": "^8.57.0",
@@ -35,6 +36,7 @@
     "jest-ts-webcompat-resolver": "^1.0.0",
     "lint-staged": "^15.2.5",
     "prettier": "^3.2.5",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.1.4",
     "typescript": "^5.4.5"
   },
