@@ -9,8 +9,7 @@ class ArtworksRepository implements ArtworksRepositoryStructure {
     try {
       return await this.model.find().exec();
     } catch (error) {
-      console.log((error as Error).message);
-      throw error;
+      throw error as Error;
     }
   };
 }

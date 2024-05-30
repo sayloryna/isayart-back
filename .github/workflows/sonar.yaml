@@ -18,8 +18,8 @@ jobs:
       - name: 💾 Install modules
         run: npm ci
 
-      - name: 🧪 Testing
-        run: npm test
+      - name: 🧪 Test coverage
+        run: npm run test:coverage
 
       - name: 🔍SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
