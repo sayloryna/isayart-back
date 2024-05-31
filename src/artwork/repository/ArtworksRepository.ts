@@ -8,7 +8,7 @@ class ArtworksRepository implements ArtworksRepositoryStructure {
   getAll = async (): Promise<ArtworkStructure[]> => {
     try {
       return await this.model.find().exec();
-    } catch (_error) {
+    } catch {
       throw new Error("Failed to find Artworks");
     }
   };
