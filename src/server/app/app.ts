@@ -5,7 +5,7 @@ import { generalError } from "../middlewares/generalError.js";
 
 const app = express();
 
-app.use("/obras", artworkRouter);
+app.use("/artworks", artworkRouter);
 
 app.use(notFoundError);
 app.use(generalError);

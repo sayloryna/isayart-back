@@ -7,7 +7,7 @@ interface ArtworkStructure {
   artworkUrl: string;
   size: {
     width: number;
-    heigtht: number;
+    height: number;
   };
   isFavourite: boolean;
 }

@@ -37,7 +37,7 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 
 ### Get All Artworks
 
-- **URL:** `http://localhost:4444/obras`
+- **URL:** `http://localhost:4444/artworks`
 - **Method:** `GET`
 - **Successful Response:**
   - List of artworks, each with:

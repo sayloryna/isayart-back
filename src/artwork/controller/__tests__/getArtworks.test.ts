@@ -23,7 +23,7 @@ describe("Given the getartworks method from artworksController", () => {
         title: "La maja desnuda",
         author: "iker",
         description: "",
-        size: { width: 100, heigtht: 200 },
+        size: { width: 100, height: 200 },
         date: "2024",
         artworkUrl: "",
         isFavourite: false,
