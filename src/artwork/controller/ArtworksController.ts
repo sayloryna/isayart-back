@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type ArtworksControllerStructure } from "./types";
 import { type ArtworksRepositoryStructure } from "../repository/types";
-import ServerError from "../../server/middlewares/errors/ServerError/ServerError";
+import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
 
 class ArtworksController implements ArtworksControllerStructure {
   constructor(
