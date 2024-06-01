@@ -1,0 +1,24 @@
+{
+  "info": {
+    "_postman_id": "67b50b2f-a680-4152-865a-42f8069fff9e",
+    "name": "IsayArt",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34609122"
+  },
+  "item": [
+    {
+      "name": "getArtwoks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://clara-fernandez-202403-back.onrender.com/artworks",
+          "protocol": "https",
+          "host": ["clara-fernandez-202403-back", "onrender", "com"],
+          "path": ["artworks"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
