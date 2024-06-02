@@ -4,9 +4,15 @@ import notFoundError from "../middlewares/notFoundError.js";
 import { generalError } from "../middlewares/generalError.js";
 import routes from "../routes/routes.js";
 import cors from "cors";
+import morgan from "morgan";
 
 const app = express();
-app.use(cors());
+app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: [process.env.ORIGIN!],
+  }),
+);
 
 app.use(routes.artworks, artworkRouter);
 

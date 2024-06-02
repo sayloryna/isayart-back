@@ -18,6 +18,7 @@ afterAll(async () => {
   await mongoose.disconnect();
   await mongoMemoryServer.stop();
 });
+
 describe("Given the GET /artworks endpoint", () => {
   const path = "/artworks";
 
