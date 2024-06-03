@@ -40,15 +40,23 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 - **URL:** `http://localhost:4444/artworks`
 - **Method:** `GET`
 - **Successful Response:**
-  - List of artworks, each with:
-    - `_id`: Artwork ID
-    - `title`: Title of the artwork
-    - `author`: Author of the artwork
-    - `description`: Description of the artwork
-    - `date`: Date of creation of the artwork
-    - `artworkUrl`: URL of the artwork image
-    - `size`: Object containing `width` and `height` of the artwork
-    - `isFavourite`: Boolean indicating if the artwork is marked as favourite
+  [
+  {
+  _id: "66572c92b1ee64ca1406557b",
+  title: "The mona Lisa",
+  author: "leonardo da Vinci",
+  description: "Portrait of Lisa, a woman smirking using the sfumatto technique",
+  date: "1503",
+  size: {
+  width: 40,
+  height: 60
+  },
+  artworkUrl: "https:art.com/mona-lisa.jpg",
+  isFavourite: false,
+  location:France,
+  medium: Oil on poplar panel
+  }
+  ]
 
 ## Errors
 
