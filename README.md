@@ -37,7 +37,7 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 
 ### Get All Artworks
 
-- **URL:** `http://localhost:4444/artworks`
+- **PATH:** `/artworks`
 - **Method:** `GET`
 - **Successful Response:**
   [
@@ -63,7 +63,16 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 In case of errors, the API will return responses in the following format:
 
 - **Error Response:**
-  - `error`: Descriptive error message
+  - `error`: (Descriptive error message)
+
+And will log the errors, with extended information in the following format:
+
+- **Error in response:**_background color magenta_
+
+  - Responded with ERROR: (Received error)
+
+- **Error in execution:**_background color red_
+  - Failed to (what failed): (error message)
 
 ## Contribution
 

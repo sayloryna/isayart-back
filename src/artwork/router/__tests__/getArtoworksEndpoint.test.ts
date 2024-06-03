@@ -7,11 +7,15 @@ import app from "../../../server/app/app";
 import type ArtworkStructure from "../../types";
 
 let mongoMemoryServer: MongoMemoryServer;
-
+let serverUri: string;
 beforeAll(async () => {
   mongoMemoryServer = await MongoMemoryServer.create();
-  const serverUri = mongoMemoryServer.getUri();
+  serverUri = mongoMemoryServer.getUri();
+
   await connectToDataBase(serverUri);
+});
+beforeEach(async () => {
+  await Artwork.deleteMany();
 });
 
 afterAll(async () => {
@@ -51,7 +55,7 @@ describe("Given the GET /artworks endpoint", () => {
 
       const expectedStatusCode = 200;
       const expectedArtwork = {
-        title: "the mona Lisa",
+        title: monaLisa.title,
       };
 
       await Artwork.create(monaLisa, vitruvisMan);
@@ -67,10 +71,10 @@ describe("Given the GET /artworks endpoint", () => {
   });
 
   describe("When it receives a Request, and the data base fails", () => {
-    test("Then it should respond wiht an blabla error ", async () => {
+    test("Then it should respond wiht an error: 'Failed to find Artworks' ", async () => {
       await mongoose.disconnect();
 
-      const expectedStatusCode = 404;
+      const expectedStatusCode = 500;
       const expectedErrorMessage = "Failed to find Artworks";
 
       const response = await request(app).get(path).expect(expectedStatusCode);
@@ -78,6 +82,8 @@ describe("Given the GET /artworks endpoint", () => {
       const body = response.body as { error: string };
 
       expect(body.error).toBe(expectedErrorMessage);
+
+      await mongoose.connect(serverUri);
     });
   });
 });
