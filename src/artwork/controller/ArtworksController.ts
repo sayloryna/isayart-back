@@ -1,12 +1,11 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type ArtworksControllerStructure } from "./types";
-import { type ArtworksRepositoryStructure } from "../repository/types";
+import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
+import chalk from "chalk";
 
 class ArtworksController implements ArtworksControllerStructure {
-  constructor(
-    private readonly artworksRepository: ArtworksRepositoryStructure,
-  ) {}
+  constructor(private readonly artworksRepository: ArtworksRepository) {}
 
   getArtworks = async (
     _req: Request,
@@ -18,7 +17,11 @@ class ArtworksController implements ArtworksControllerStructure {
 
       res.status(200).json(artworks);
     } catch (error) {
-      const serverError = new ServerError((error as Error).message, 404);
+      console.log(
+        chalk.bgRed.bold.white((error as { message: string }).message),
+      );
+
+      const serverError = new ServerError("Failed to find Artworks", 500);
 
       next(serverError);
     }

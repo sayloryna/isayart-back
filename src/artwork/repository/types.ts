@@ -1,5 +1,5 @@
 import type ArtworkStructure from "../types.js";
 
-export interface ArtworksRepositoryStructure {
+export interface ArtworksRepository {
   getAll(): Promise<ArtworkStructure[]>;
 }

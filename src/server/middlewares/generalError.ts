@@ -11,7 +11,9 @@ export const generalError = (
   const statusCode = error.statusCode ?? 500;
   const errorMessage = error.message || "Server failed: Unknown Error";
 
-  console.log(chalk.redBright.bold(`${errorMessage}`));
+  console.log(
+    chalk.bold.white.bgMagenta(`Responded with ERROR:${errorMessage}`),
+  );
 
   res.status(statusCode).json({ error: `${errorMessage}` });
 };

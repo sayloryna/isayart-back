@@ -1,17 +1,11 @@
 import { type Model } from "mongoose";
-import { type ArtworksRepositoryStructure } from "./types.js";
+import { type ArtworksRepository } from "./types.js";
 import type ArtworkStructure from "../types.js";
 
-class ArtworksRepository implements ArtworksRepositoryStructure {
+class ArtworksMongooseRepository implements ArtworksRepository {
   constructor(public readonly model: Model<ArtworkStructure>) {}
 
-  getAll = async (): Promise<ArtworkStructure[]> => {
-    try {
-      return await this.model.find().exec();
-    } catch {
-      throw new Error("Failed to find Artworks");
-    }
-  };
+  getAll = async (): Promise<ArtworkStructure[]> => this.model.find().exec();
 }
 
-export default ArtworksRepository;
+export default ArtworksMongooseRepository;

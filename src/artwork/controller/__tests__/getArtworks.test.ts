@@ -1,22 +1,24 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { type ArtworksRepositoryStructure } from "../../repository/types";
+import { type ArtworksRepository } from "../../repository/types";
 import ArtworksController from "../ArtworksController";
-import type ArtworkStructure from "../../types";
 import ServerError from "../../../server/middlewares/errors/ServerError/ServerError";
+import { type ResponseWithStatusJson } from "../types";
+import type ArtworkStructure from "../../types";
 
-describe("Given the getartworks method from artworksController", () => {
+describe("Given the getArtworks method from artworksController", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   const req = {};
-  const res: Partial<Response> = {
+
+  const res: ResponseWithStatusJson = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
   };
   const next = jest.fn();
 
-  describe("When it receives a Request and the repository contains the artwork 'La maja desnuda' by iker", () => {
+  describe("When it receives a Request and the repository contains the artwork 'La maja desnuda'", () => {
     const artworks: ArtworkStructure[] = [
       {
         _id: "",
@@ -30,7 +32,7 @@ describe("Given the getartworks method from artworksController", () => {
       },
     ];
 
-    const repository: ArtworksRepositoryStructure = {
+    const repository: ArtworksRepository = {
       async getAll(): Promise<ArtworkStructure[]> {
         return artworks;
       },
@@ -49,7 +51,7 @@ describe("Given the getartworks method from artworksController", () => {
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
 
-    test("Then it should call the response json method with a list of artworks including 'La maja desnuda' by iker", async () => {
+    test("Then it should call the response json method with a list of artworks including 'La maja desnuda' ", async () => {
       await controller.getArtworks(
         req as Request,
         res as Response,
@@ -60,17 +62,17 @@ describe("Given the getartworks method from artworksController", () => {
     });
   });
 
-  describe("When it receives a Next function and the repository throws an error with the message 'Failed to get artworks' ", () => {
-    const repository: ArtworksRepositoryStructure = {
+  describe("When it receives a Next function and the repository throws an error ", () => {
+    const repository: ArtworksRepository = {
       async getAll(): Promise<ArtworkStructure[]> {
-        throw new Error("Failed to get artworks");
+        throw new Error();
       },
     };
     const controller = new ArtworksController(repository);
 
-    test("Then it should call the next function with a server error with the code 404 and the message 'Failed to get artworks'", async () => {
+    test("Then it should call the next function with a server error with the code 404 and the message 'Failed to find artworks'", async () => {
       const expectedStatus = 404;
-      const expectedMessage = "Failed to get artworks";
+      const expectedMessage = "Failed to find Artworks";
 
       const error = new ServerError(expectedMessage, expectedStatus);
 
