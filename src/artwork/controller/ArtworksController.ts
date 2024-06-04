@@ -1,8 +1,8 @@
+import chalk from "chalk";
 import { type NextFunction, type Request, type Response } from "express";
 import { type ArtworksControllerStructure } from "./types";
 import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
-import chalk from "chalk";
 
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}

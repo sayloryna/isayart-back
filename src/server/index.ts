@@ -1,5 +1,4 @@
 import chalk from "chalk";
-
 import app from "./app/app.js";
 
 const startServer = (port: number) => {

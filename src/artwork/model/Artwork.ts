@@ -16,7 +16,6 @@ const artworkSchema = new Schema<ArtworkStructure>({
   year: {
     type: Number,
   },
-
   artworkUrl: {
     type: String,
     required: true,
@@ -25,7 +24,6 @@ const artworkSchema = new Schema<ArtworkStructure>({
     width: Number,
     height: Number,
   },
-
   isFavourite: {
     type: Boolean,
     default: false,
