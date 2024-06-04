@@ -26,9 +26,11 @@ describe("Given the getArtworks method from artworksController", () => {
         author: "iker",
         description: "",
         size: { width: 100, height: 200 },
-        date: "2024",
+        year: 2024,
         artworkUrl: "",
         isFavourite: false,
+        medium: "oleo sobre lienzo",
+        location: "Madrid, España",
       },
     ];
 

@@ -13,8 +13,8 @@ const artworkSchema = new Schema<ArtworkStructure>({
   description: {
     type: String,
   },
-  date: {
-    type: String,
+  year: {
+    type: Number,
   },
 
   artworkUrl: {

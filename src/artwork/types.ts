@@ -3,13 +3,15 @@ interface ArtworkStructure {
   title: string;
   author: string;
   description: string;
-  date: string;
+  year: number;
   artworkUrl: string;
   size: {
     width: number;
     height: number;
   };
   isFavourite: boolean;
+  medium: string;
+  location: string;
 }
 
 export default ArtworkStructure;
