@@ -8,12 +8,14 @@ import type ArtworkStructure from "../../types";
 
 let mongoMemoryServer: MongoMemoryServer;
 let serverUri: string;
+
 beforeAll(async () => {
   mongoMemoryServer = await MongoMemoryServer.create();
   serverUri = mongoMemoryServer.getUri();
 
   await connectToDataBase(serverUri);
 });
+
 beforeEach(async () => {
   await Artwork.deleteMany();
 });
@@ -73,6 +75,7 @@ describe("Given the GET /artworks endpoint", () => {
   describe("When it receives a Request, and the data base fails", () => {
     test("Then it should respond wiht an error: 'Failed to find Artworks' ", async () => {
       await mongoose.disconnect();
+      await connectToDataBase("wrongUri");
 
       const expectedStatusCode = 500;
       const expectedErrorMessage = "Failed to find Artworks";

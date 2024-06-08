@@ -26,7 +26,6 @@ const config = {
     "!src/index.ts",
     "!src/server/index.ts",
     "!src/**/**/types.ts",
-    "!src/database/index.ts",
   ],
   // The directory where Jest should output its coverage files
   // coverageDirectory: undefined,

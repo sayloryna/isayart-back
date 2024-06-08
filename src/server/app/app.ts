@@ -1,10 +1,10 @@
 import express from "express";
+import cors from "cors";
+import morgan from "morgan";
 import artworkRouter from "../../artwork/router/artworkRouter.js";
 import notFoundError from "../middlewares/notFoundError.js";
 import { generalError } from "../middlewares/generalError.js";
 import routes from "../routes/routes.js";
-import cors from "cors";
-import morgan from "morgan";
 
 const app = express();
 app.disable("x-powered-by");
