@@ -5,9 +5,13 @@ import type ArtworkStructure from "../types.js";
 class ArtworksMongooseRepository implements ArtworksRepository {
   constructor(public readonly model: Model<ArtworkStructure>) {}
 
-  getAll = async (): Promise<ArtworkStructure[]> => this.model.find().exec();
-  createArtwork = async (artworkData: ArtworkData): Promise<ArtworkStructure> =>
-    this.model.create(artworkData);
+  async getAll(): Promise<ArtworkStructure[]> {
+    return this.model.find().exec();
+  }
+
+  async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
+    return this.model.create(artworkData);
+  }
 }
 
 export default ArtworksMongooseRepository;

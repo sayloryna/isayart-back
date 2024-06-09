@@ -1,7 +1,8 @@
 import { Router } from "express";
 import ArtworksController from "../controller/ArtworksController.js";
-import ArtworksMongooseRepository from "../repository/ArtworksRepository.js";
+
 import Artwork from "../model/Artwork.js";
+import ArtworksMongooseRepository from "../repository/ArtworksMongooseRepository.js";
 
 const artworkRouter = Router();
 
