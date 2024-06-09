@@ -19,6 +19,29 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "createArtwork(monaLisa)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"the mona Lisa\",\r\n  \"author\": \"Leonardo da vinci\",\r\n  \"description\": \"painting of La Gioconda smiling\",\r\n  \"year\": 2024,\r\n  \"artworkUrl\": \"https://art.com/\",\r\n  \"size\": {\r\n    \"width\": 40,\r\n    \"height\": 60\r\n  },\r\n  \"location\": \"madrid\",\r\n  \"medium\": \"odio sobre lienzo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://clara-fernandez-202403-back.onrender.com/artworks",
+          "protocol": "https",
+          "host": ["clara-fernandez-202403-back", "onrender", "com"],
+          "path": ["artworks"]
+        }
+      },
+      "response": []
     }
   ]
 }

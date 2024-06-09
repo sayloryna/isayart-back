@@ -61,6 +61,48 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 ]
 ```
 
+## Create Artwork
+
+- **PATH:** `/artworks`
+- **Method:** `GET`
+- **Request example:**
+
+```json
+{
+  "_id": "66572c92b1ee64ca1406557b",
+  "title": "The mona Lisa",
+  "author": "leonardo da Vinci",
+  "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
+  "date": "1503",
+  "size": {
+    "width": 40,
+    "height": 60
+  },
+  "artworkUrl": "https:art.com/mona-lisa.jpg",
+  "location": "France",
+  "medium": "Oil on poplar panel"
+}
+```
+
+- **Successful Response:**
+
+```json
+{
+  "title": "The mona Lisa",
+  "author": "leonardo da Vinci",
+  "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
+  "date": "1503",
+  "size": {
+    "width": 40,
+    "height": 60
+  },
+  "artworkUrl": "https:art.com/mona-lisa.jpg",
+  "location": "France",
+  "medium": "Oil on poplar panel",
+  "isFavourite": false
+}
+```
+
 ## Errors
 
 In case of errors, the API will return responses in the following format:
