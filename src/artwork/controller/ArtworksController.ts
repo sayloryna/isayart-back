@@ -1,6 +1,9 @@
 import chalk from "chalk";
 import { type NextFunction, type Request, type Response } from "express";
-import { type ArtworksControllerStructure } from "./types";
+import {
+  type RequestWithArtworkData,
+  type ArtworksControllerStructure,
+} from "./types";
 import { type ArtworkData, type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
 import { ParamsDictionary } from "express-serve-static-core";
@@ -30,7 +33,7 @@ class ArtworksController implements ArtworksControllerStructure {
   };
 
   createArtwork = async (
-    req: Request<Record<string, unknown>, Record<string, unknown>, ArtworkData>,
+    req: RequestWithArtworkData,
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
