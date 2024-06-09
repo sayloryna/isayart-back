@@ -5,8 +5,6 @@ import connectToDataBase from "../../../database";
 import Artwork from "../../model/Artwork";
 import app from "../../../server/app/app";
 import type ArtworkStructure from "../../types";
-import { response } from "express";
-import { error } from "console";
 import { type ArtworkData } from "../../repository/types";
 
 let mongoMemoryServer: MongoMemoryServer;
@@ -127,7 +125,7 @@ describe("Given the POST /artworks endpoint", () => {
   describe("When it receives a Request with 'La mona lisa' but missing an artworkUrl", () => {
     test("Then it should respond with 400 and error:'Invalid or missing artwork data'", async () => {
       const monalisaWithoutArtworkUrl = {
-        title: 123,
+        title: "la Mona Lisa",
         author: "Leonardo da vinci",
         description: "",
         year: 2024,

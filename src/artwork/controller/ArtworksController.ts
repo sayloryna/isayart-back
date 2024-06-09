@@ -4,11 +4,8 @@ import {
   type RequestWithArtworkData,
   type ArtworksControllerStructure,
 } from "./types";
-import { type ArtworkData, type ArtworksRepository } from "../repository/types";
+import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
-
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}
 
