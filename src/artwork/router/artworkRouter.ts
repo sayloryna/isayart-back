@@ -11,5 +11,6 @@ const artworkRepository = new ArtworksMongooseRepository(Artwork);
 const artworksController = new ArtworksController(artworkRepository);
 
 artworkRouter.get("/", artworksController.getArtworks);
+artworkRouter.post("/", artworksController.createArtwork);
 
 export default artworkRouter;

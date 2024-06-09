@@ -41,7 +41,7 @@ describe("Given the getArtworks method from artworksController", () => {
       async getAll(): Promise<ArtworkStructure[]> {
         return artworks;
       },
-      async createArtwork(artowrkData: ArtworkData): Promise<ArtworkStructure> {
+      async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
         throw new Error("Function not implemented.");
       },
     };
@@ -75,7 +75,7 @@ describe("Given the getArtworks method from artworksController", () => {
       async getAll(): Promise<ArtworkStructure[]> {
         throw new Error();
       },
-      async createArtwork(artowrkData: ArtworkData): Promise<ArtworkStructure> {
+      async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
         throw new Error("Function not implemented.");
       },
     };
