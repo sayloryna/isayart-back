@@ -11,7 +11,7 @@
     "start:dev": "node --watch .",
     "prepare": "husky",
     "test": "jest",
-    "test:dev": "jest --watcAll",
+    "test:dev": "jest --watchAll",
     "test:coverage": "jest --coverage"
   },
   "keywords": [],

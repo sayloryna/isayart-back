@@ -1,5 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { type ArtworksRepository } from "../../repository/types";
+import {
+  type ArtworkData,
+  type ArtworksRepository,
+} from "../../repository/types";
 import ArtworksController from "../ArtworksController";
 import ServerError from "../../../server/middlewares/errors/ServerError/ServerError";
 import { type ResponseWithStatusJson } from "../types";
@@ -38,6 +41,9 @@ describe("Given the getArtworks method from artworksController", () => {
       async getAll(): Promise<ArtworkStructure[]> {
         return artworks;
       },
+      async createArtwork(artowrkData: ArtworkData): Promise<ArtworkStructure> {
+        throw new Error("Function not implemented.");
+      },
     };
     const controller = new ArtworksController(repository);
 
@@ -68,6 +74,9 @@ describe("Given the getArtworks method from artworksController", () => {
     const repository: ArtworksRepository = {
       async getAll(): Promise<ArtworkStructure[]> {
         throw new Error();
+      },
+      async createArtwork(artowrkData: ArtworkData): Promise<ArtworkStructure> {
+        throw new Error("Function not implemented.");
       },
     };
     const controller = new ArtworksController(repository);
