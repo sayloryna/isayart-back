@@ -17,7 +17,7 @@ class ArtworksController implements ArtworksControllerStructure {
     try {
       const artworks = await this.artworksRepository.getAll();
 
-      res.status(200).json(artworks);
+      res.status(200).json({ artworks });
     } catch (error) {
       console.log(
         chalk.bgRed.bold.white((error as { message: string }).message),

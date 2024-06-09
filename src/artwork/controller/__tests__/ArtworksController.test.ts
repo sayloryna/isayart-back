@@ -68,7 +68,7 @@ describe("Given the getArtworks method from artworksController", () => {
         next as NextFunction,
       );
 
-      expect(res.json).toHaveBeenCalledWith(artworks);
+      expect(res.json).toHaveBeenCalledWith({ artworks });
     });
   });
 

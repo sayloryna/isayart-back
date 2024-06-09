@@ -5,6 +5,7 @@ import connectToDataBase from "../../../database";
 import Artwork from "../../model/Artwork";
 import app from "../../../server/app/app";
 import type ArtworkStructure from "../../types";
+
 import { type ArtworkData } from "../../repository/types";
 
 let mongoMemoryServer: MongoMemoryServer;
@@ -67,9 +68,9 @@ describe("Given the GET /artworks endpoint", () => {
 
       const response = await request(app).get(path).expect(expectedStatusCode);
 
-      const body = response.body as ArtworkStructure[];
+      const body = response.body as { artworks: ArtworkStructure[] };
 
-      expect(body).toEqual(
+      expect(body.artworks).toEqual(
         expect.arrayContaining([expect.objectContaining(expectedArtwork)]),
       );
     });
