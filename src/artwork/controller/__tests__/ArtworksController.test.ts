@@ -133,7 +133,7 @@ describe("Given the createArtwork method from artworksController", () => {
         next as NextFunction,
       );
 
-      expect(res.json).toHaveBeenCalledWith(majaDesnuda);
+      expect(res.json).toHaveBeenCalledWith({ newArtwork: majaDesnuda });
     });
 
     test("Then it should call the response status method with '200'", async () => {

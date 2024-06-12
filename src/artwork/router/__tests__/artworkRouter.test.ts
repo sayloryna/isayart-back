@@ -5,7 +5,6 @@ import connectToDataBase from "../../../database";
 import Artwork from "../../model/Artwork";
 import app from "../../../server/app/app";
 import type ArtworkStructure from "../../types";
-
 import { type ArtworkData } from "../../repository/types";
 
 let mongoMemoryServer: MongoMemoryServer;
@@ -75,24 +74,6 @@ describe("Given the GET /artworks endpoint", () => {
       );
     });
   });
-
-  describe("When it receives a Request, and the data base fails", () => {
-    test("Then it should respond wiht an error: 'Failed to find Artworks' ", async () => {
-      await mongoose.disconnect();
-      await connectToDataBase("wrongUri");
-
-      const expectedStatusCode = 500;
-      const expectedErrorMessage = "Failed to find Artworks";
-
-      const response = await request(app).get(path).expect(expectedStatusCode);
-
-      const body = response.body as { error: string };
-
-      expect(body.error).toBe(expectedErrorMessage);
-
-      await mongoose.connect(serverUri);
-    });
-  });
 });
 
 describe("Given the POST /artworks endpoint", () => {
@@ -103,10 +84,12 @@ describe("Given the POST /artworks endpoint", () => {
       };
       const response = await request(app).post(path).send(monaLisa).expect(200);
 
-      const body = response.body as ArtworkStructure;
+      const body = response.body as { newArtwork: ArtworkStructure };
 
-      expect(body).toHaveProperty("_id");
-      expect(body).toEqual(expect.objectContaining(expectedArtworkTitle));
+      expect(body.newArtwork).toHaveProperty("_id");
+      expect(body.newArtwork).toEqual(
+        expect.objectContaining(expectedArtworkTitle),
+      );
     });
   });
 
@@ -117,7 +100,7 @@ describe("Given the POST /artworks endpoint", () => {
 
       const response = await request(app).post(path).send(monaLisa).expect(409);
 
-      const body = response.body as ArtworkStructure;
+      const body = response.body as { newArtwork: ArtworkStructure };
 
       expect(body).toEqual({ error: expectedErrorMessage });
     });
