@@ -27,7 +27,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"title\": \"the mona Lisa\",\r\n  \"author\": \"Leonardo da vinci\",\r\n  \"description\": \"painting of La Gioconda smiling\",\r\n  \"year\": 2024,\r\n  \"artworkUrl\": \"https://art.com/\",\r\n  \"size\": {\r\n    \"width\": 40,\r\n    \"height\": 60\r\n  },\r\n  \"location\": \"madrid\",\r\n  \"medium\": \"odio sobre lienzo\"\r\n}",
+          "raw": "{\r\n  \"title\": \"the mona Lisa\",\r\n  \"author\": \"Leonardo da vinci\",\r\n  \"description\": \"painting of La Gioconda smiling\",\r\n  \"year\": 2024,\r\n  \"artworkUrl\": \"https://media.revistaad.es/photos/60c2230c899238f7fd38d143/1:1/w_2030,h_2030,c_limit/281373.jpg\",\r\n  \"size\": {\r\n    \"width\": 40,\r\n    \"height\": 60\r\n  },\r\n  \"location\": \"madrid\",\r\n  \"medium\": \"odio sobre lienzo\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
