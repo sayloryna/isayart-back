@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import chalk from "chalk";
+import { exit } from "process";
 
 const connectToDataBase = async (dataBaseUrl: string): Promise<void> => {
   try {
@@ -14,6 +15,8 @@ const connectToDataBase = async (dataBaseUrl: string): Promise<void> => {
         `"Failed to connect to DataBase: "${errorMessage}`,
       ),
     );
+
+    exit(1);
   }
 };
 

@@ -21,7 +21,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const majaDesnuda = {
+const majaDesnuda: ArtworkStructure = {
   _id: "",
   title: "La maja desnuda",
   author: "iker",
@@ -33,6 +33,7 @@ const majaDesnuda = {
   medium: "oleo sobre lienzo",
   location: "Madrid, España",
 };
+
 describe("Given the getArtworks method from artworksController", () => {
   const req = {};
 

@@ -37,7 +37,7 @@ class ArtworksController implements ArtworksControllerStructure {
     try {
       const newArtwork = await this.artworksRepository.createArtwork(req.body);
 
-      res.status(200).json(newArtwork);
+      res.status(200).json({ newArtwork });
     } catch (error) {
       const errorCode = (error as { code: number }).code;
 
