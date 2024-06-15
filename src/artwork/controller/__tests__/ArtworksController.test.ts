@@ -6,6 +6,7 @@ import {
 import ArtworksController from "../ArtworksController";
 import ServerError from "../../../server/middlewares/errors/ServerError/ServerError";
 import {
+  type RequestWithArtworkIdParameter,
   type RequestWithArtworkData,
   type ResponseWithStatusJson,
 } from "../types";
@@ -22,7 +23,7 @@ beforeEach(() => {
 });
 
 const majaDesnuda: ArtworkStructure = {
-  _id: "",
+  _id: "majaDesnudaId",
   title: "La maja desnuda",
   author: "iker",
   description: "",
@@ -34,20 +35,36 @@ const majaDesnuda: ArtworkStructure = {
   location: "Madrid, España",
 };
 
-describe("Given the getArtworks method from artworksController", () => {
+const artworks: ArtworkStructure[] = [majaDesnuda];
+
+const errorRepository: ArtworksRepository = {
+  async getAll(): Promise<ArtworkStructure[]> {
+    throw new Error();
+  },
+  async createArtwork(_artworkData: ArtworkData): Promise<ArtworkStructure> {
+    throw new Error();
+  },
+  async deleteById(artworkId) {
+    throw new Error(`Could not find artwork with ID: ${artworkId}`);
+  },
+};
+
+const repository: ArtworksRepository = {
+  async getAll(): Promise<ArtworkStructure[]> {
+    return artworks;
+  },
+  async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
+    return { ...artworkData, _id: majaDesnuda._id, isFavourite: false };
+  },
+  async deleteById(_artworkId) {
+    return majaDesnuda;
+  },
+};
+
+describe("Given the getArtworks method from the artworksController", () => {
   const req = {};
 
   describe("When it receives a Request and the repository contains the artwork 'La maja desnuda'", () => {
-    const artworks: ArtworkStructure[] = [majaDesnuda];
-
-    const repository: ArtworksRepository = {
-      async getAll(): Promise<ArtworkStructure[]> {
-        return artworks;
-      },
-      async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
-        throw new Error("Function not implemented.");
-      },
-    };
     const controller = new ArtworksController(repository);
 
     test("Then it should call the Response status method with 200", async () => {
@@ -74,15 +91,7 @@ describe("Given the getArtworks method from artworksController", () => {
   });
 
   describe("When it receives a Next function and the repository throws an error ", () => {
-    const repository: ArtworksRepository = {
-      async getAll(): Promise<ArtworkStructure[]> {
-        throw new Error();
-      },
-      async createArtwork(): Promise<ArtworkStructure> {
-        throw new Error("Function not implemented.");
-      },
-    };
-    const controller = new ArtworksController(repository);
+    const controller = new ArtworksController(errorRepository);
 
     test("Then it should call the next function with a server error with the code 404 and the message 'Failed to find artworks'", async () => {
       const expectedStatus = 404;
@@ -101,7 +110,7 @@ describe("Given the getArtworks method from artworksController", () => {
   });
 });
 
-describe("Given the createArtwork method from artworksController", () => {
+describe("Given the createArtwork method from the artworksController", () => {
   describe("When it receives a Request with the 'la maja desnuda' data", () => {
     const majaDesnudaData = {
       title: "La maja desnuda",
@@ -116,14 +125,6 @@ describe("Given the createArtwork method from artworksController", () => {
 
     const req: Partial<RequestWithArtworkData> = { body: majaDesnudaData };
 
-    const repository: ArtworksRepository = {
-      async getAll(): Promise<ArtworkStructure[]> {
-        throw new Error();
-      },
-      async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
-        return { ...artworkData, _id: majaDesnuda._id, isFavourite: false };
-      },
-    };
     const controller = new ArtworksController(repository);
 
     test("Then it should call the response json method with 'la maja desnuda' with _id", async () => {
@@ -163,15 +164,7 @@ describe("Given the createArtwork method from artworksController", () => {
 
     const req: Partial<RequestWithArtworkData> = { body: majaDesnudaData };
 
-    const repository: ArtworksRepository = {
-      async getAll(): Promise<ArtworkStructure[]> {
-        throw new Error();
-      },
-      async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
-        throw new Error();
-      },
-    };
-    const controller = new ArtworksController(repository);
+    const controller = new ArtworksController(errorRepository);
 
     test("Then it should call next funtion with error:Invalid or missing artwork data with the code 400", async () => {
       await controller.createArtwork(
@@ -182,6 +175,47 @@ describe("Given the createArtwork method from artworksController", () => {
       const error = new ServerError("Invalid or missing artwork data", 400);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given the deleteArtworkById method from the artworksController", () => {
+  describe("When it receives de ID: 'majaDesnudaId'", () => {
+    describe("And 'la maja desnuda' with that id is in the database", () => {
+      const req: Partial<RequestWithArtworkIdParameter> = {
+        params: {
+          artworkId: majaDesnuda._id,
+        },
+      };
+
+      test("Then it should call the response status with 200 and the json with 'la maja desnuda'", async () => {
+        const expectedCode = 200;
+        const controller = new ArtworksController(repository);
+
+        await controller.deleteArtworkById(
+          req as RequestWithArtworkIdParameter,
+          res as Response,
+          next as NextFunction,
+        );
+
+        expect(res.status).toHaveBeenCalledWith(expectedCode);
+        expect(res.json).toHaveBeenCalledWith({ deletedArtwork: majaDesnuda });
+      });
+
+      test("Then it should call the next function with 404 and error:'Could not find artwork with ID: majaDesnudaID'", async () => {
+        const expectedError = new ServerError(
+          `Could not find artwork with ID: ${majaDesnuda._id}`,
+          404,
+        );
+
+        const controller = new ArtworksController(errorRepository);
+        await controller.deleteArtworkById(
+          req as RequestWithArtworkIdParameter,
+          res as Response,
+          next as NextFunction,
+        );
+        expect(next).toHaveBeenCalledWith(expectedError);
+      });
     });
   });
 });

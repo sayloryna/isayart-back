@@ -10,14 +10,15 @@ import ServerError from "../../server/middlewares/errors/ServerError/ServerError
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}
 
-  deleteArtworkById(
+  deleteArtworkById = async (
     req: RequestWithArtworkIdParameter,
     res: Response,
     next: NextFunction,
-  ): void {
+  ): Promise<void> => {
     const { artworkId } = req.params;
     try {
-      const deletedArtwork = this.artworksRepository.deleteById(artworkId);
+      const deletedArtwork =
+        await this.artworksRepository.deleteById(artworkId);
 
       res.status(200).json({ deletedArtwork });
     } catch (error) {
@@ -27,7 +28,7 @@ class ArtworksController implements ArtworksControllerStructure {
       );
       next(serverError);
     }
-  }
+  };
 
   getArtworks = async (
     _req: Request,
