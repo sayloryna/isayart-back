@@ -3,11 +3,32 @@ import { type NextFunction, type Request, type Response } from "express";
 import {
   type RequestWithArtworkData,
   type ArtworksControllerStructure,
+  type RequestWithArtworkIdParameter,
 } from "./types";
 import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}
+
+  deleteArtworkById = async (
+    req: RequestWithArtworkIdParameter,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { artworkId } = req.params;
+    try {
+      const deletedArtwork =
+        await this.artworksRepository.deleteById(artworkId);
+
+      res.status(200).json({ deletedArtwork });
+    } catch (error) {
+      const serverError = new ServerError(
+        (error as { message: string }).message,
+        404,
+      );
+      next(serverError);
+    }
+  };
 
   getArtworks = async (
     _req: Request,
@@ -45,6 +66,7 @@ class ArtworksController implements ArtworksControllerStructure {
         errorCode === 11000
           ? "Artwork already in gallery"
           : "Invalid or missing artwork data";
+
       const serverErrorCode = errorCode === 11000 ? 409 : 400;
 
       const serverError = new ServerError(serverErrorMessage, serverErrorCode);
