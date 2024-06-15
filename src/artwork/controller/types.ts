@@ -4,6 +4,7 @@ import { type ArtworkData } from "../repository/types";
 export interface ArtworksControllerStructure {
   getArtworks(req: Request, res: Response, next: NextFunction): void;
   createArtwork(req: Request, res: Response, next: NextFunction): void;
+  deleteArtworkById(req: Request, res: Response, next: NextFunction): void;
 }
 
 export type ResponseWithStatusJson = Pick<Response, "status" | "json">;
@@ -13,3 +14,5 @@ export type RequestWithArtworkData = Request<
   Record<string, unknown>,
   ArtworkData
 >;
+
+export type RequestWithArtworkIdParameter = Request<{ artworkId: string }>;

@@ -3,11 +3,31 @@ import { type NextFunction, type Request, type Response } from "express";
 import {
   type RequestWithArtworkData,
   type ArtworksControllerStructure,
+  type RequestWithArtworkIdParameter,
 } from "./types";
 import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}
+
+  deleteArtworkById(
+    req: RequestWithArtworkIdParameter,
+    res: Response,
+    next: NextFunction,
+  ): void {
+    const { artworkId } = req.params;
+    try {
+      const deletedArtwork = this.artworksRepository.deleteById(artworkId);
+
+      res.status(200).json({ deletedArtwork });
+    } catch (error) {
+      const serverError = new ServerError(
+        (error as { message: string }).message,
+        404,
+      );
+      next(serverError);
+    }
+  }
 
   getArtworks = async (
     _req: Request,
