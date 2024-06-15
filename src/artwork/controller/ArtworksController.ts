@@ -45,6 +45,7 @@ class ArtworksController implements ArtworksControllerStructure {
         errorCode === 11000
           ? "Artwork already in gallery"
           : "Invalid or missing artwork data";
+
       const serverErrorCode = errorCode === 11000 ? 409 : 400;
 
       const serverError = new ServerError(serverErrorMessage, serverErrorCode);
