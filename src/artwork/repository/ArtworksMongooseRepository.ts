@@ -13,14 +13,14 @@ class ArtworksMongooseRepository implements ArtworksRepository {
     return this.model.create(artworkData);
   }
 
-  async deleteById(artworkId: string): Promise<ArtworkStructure | Error> {
-    const deletedArtwork = await this.model.findByIdAndDelete(artworkId);
+  async deleteById(artworkId: string): Promise<ArtworkStructure> {
+    const deletedArtwork = await this.model.findByIdAndDelete(artworkId).exec();
 
-    if (deletedArtwork) {
-      return deletedArtwork;
+    if (!deletedArtwork) {
+      throw new Error(`Could not find artwork with ID: ${artworkId}`);
     }
 
-    throw new Error(`Could not find artwork with ID: ${artworkId}`);
+    return deletedArtwork;
   }
 }
 

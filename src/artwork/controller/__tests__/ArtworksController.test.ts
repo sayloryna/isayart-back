@@ -56,8 +56,13 @@ const repository: ArtworksRepository = {
   async createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure> {
     return { ...artworkData, _id: majaDesnuda._id, isFavourite: false };
   },
-  async deleteById(_artworkId) {
-    return majaDesnuda;
+  async deleteById(artworkId) {
+    const majaDesnuda = artworks.find((artwork) => artwork._id === artworkId);
+    if (majaDesnuda) {
+      return majaDesnuda;
+    }
+
+    throw new Error(`Could not find artwork with ID: ${artworkId}`);
   },
 };
 

@@ -12,5 +12,6 @@ const artworksController = new ArtworksController(artworkRepository);
 
 artworkRouter.get("/", artworksController.getArtworks);
 artworkRouter.post("/", artworksController.createArtwork);
+artworkRouter.delete("/:artworkId", artworksController.deleteArtworkById);
 
 export default artworkRouter;
