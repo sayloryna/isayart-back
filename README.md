@@ -64,12 +64,11 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 ## Create Artwork
 
 - **PATH:** `/artworks`
-- **Method:** `GET`
+- **Method:** `POST`
 - **Request example:**
 
 ```json
 {
-  "_id": "66572c92b1ee64ca1406557b",
   "title": "The mona Lisa",
   "author": "leonardo da Vinci",
   "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
@@ -88,18 +87,21 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 
 ```json
 {
-  "title": "The mona Lisa",
-  "author": "leonardo da Vinci",
-  "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
-  "date": "1503",
-  "size": {
-    "width": 40,
-    "height": 60
-  },
-  "artworkUrl": "https:art.com/mona-lisa.jpg",
-  "location": "France",
-  "medium": "Oil on poplar panel",
-  "isFavourite": false
+  "createdArtwork": {
+    "_id": "66572c92b1ee64ca1406557b",
+    "title": "The mona Lisa",
+    "author": "leonardo da Vinci",
+    "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
+    "date": "1503",
+    "size": {
+      "width": 40,
+      "height": 60
+    },
+    "artworkUrl": "https:art.com/mona-lisa.jpg",
+    "location": "France",
+    "medium": "Oil on poplar panel",
+    "isFavourite": false
+  }
 }
 ```
 
@@ -112,11 +114,11 @@ In case of errors, the API will return responses in the following format:
 
 And will log the errors, with extended information in the following format:
 
-- **Error in response:**_background color magenta_
+- **Error in response:**
 
   - Responded with ERROR: (Received error)
 
-- **Error in execution:**_background color red_
+- **Error in execution:**
   - Failed to (what failed): (error message)
 
 ## Contribution
