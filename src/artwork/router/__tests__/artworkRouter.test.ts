@@ -159,13 +159,47 @@ describe("Given the Delete /artworks/:artworkId endpoint", () => {
     });
   });
 
-  describe("When it receives a Request with  and id that doesn't match any artwork ID 'aaaaaaaaaaaaaaaaaaaaaaaa' ", () => {
-    test("Then it should respond with 404 and the error Could not find artwork with ID: aaaaaaaaaaaaaaaaaaaaaaaa", async () => {
-      const notMatchingId = "aaaaaaaaaaaaaaaaaaaaaaaa";
-      const expectedError = `Could not find artwork with ID: ${notMatchingId}`;
+  describe("When it receives a Request with andid that doesn't match any artwork Id ", () => {
+    test("Then it should respond with 404 and the error 'Failed to delete, no artwork matched provided Id'", async () => {
+      const notMatchingId = "48029431a150393675468875";
+      const expectedError = `Failed to delete, no artwork matched provided Id`;
 
       const response = await request(app)
         .delete(`${path}/${notMatchingId}`)
+        .expect(404);
+
+      const body = response.body as { error: string };
+
+      expect(body.error).toBe(expectedError);
+    });
+  });
+});
+
+describe("Given the GET /artworks/:artworkId endpoint", () => {
+  describe("When it receives a Request with  the mona lisa _id and the mona lisa exist in the database", () => {
+    test("Then it should respond with 200 and 'la mona lisa' with the same ID", async () => {
+      const monaLisa = await Artwork.create<ArtworkData>(monaLisaData);
+      const expectedId = monaLisa._id.toString();
+
+      const response = await request(app)
+        .get(`${path}/${monaLisa._id}`)
+        .expect(200);
+
+      const body = response.body as { artwork: ArtworkStructure };
+
+      const receivedId = body.artwork._id;
+
+      expect(receivedId).toBe(expectedId);
+    });
+  });
+
+  describe("When it receives a Request with: and Id that doesn't match any artwork Id", () => {
+    test("Then it should respond with 404 and the error 'Failed to delete, no artwork matched provided Id'", async () => {
+      const notMatchingId = "67546887548029431a150393";
+      const expectedError = `Failed to find artwork with provided Id`;
+
+      const response = await request(app)
+        .get(`${path}/${notMatchingId}`)
         .expect(404);
 
       const body = response.body as { error: string };

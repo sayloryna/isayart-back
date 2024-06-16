@@ -10,26 +10,6 @@ import ServerError from "../../server/middlewares/errors/ServerError/ServerError
 class ArtworksController implements ArtworksControllerStructure {
   constructor(private readonly artworksRepository: ArtworksRepository) {}
 
-  deleteArtworkById = async (
-    req: RequestWithArtworkIdParameter,
-    res: Response,
-    next: NextFunction,
-  ): Promise<void> => {
-    const { artworkId } = req.params;
-    try {
-      const deletedArtwork =
-        await this.artworksRepository.deleteById(artworkId);
-
-      res.status(200).json({ deletedArtwork });
-    } catch (error) {
-      const serverError = new ServerError(
-        (error as { message: string }).message,
-        404,
-      );
-      next(serverError);
-    }
-  };
-
   getArtworks = async (
     _req: Request,
     res: Response,
@@ -71,6 +51,51 @@ class ArtworksController implements ArtworksControllerStructure {
 
       const serverError = new ServerError(serverErrorMessage, serverErrorCode);
 
+      next(serverError);
+    }
+  };
+
+  deleteArtworkById = async (
+    req: RequestWithArtworkIdParameter,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { artworkId } = req.params;
+    try {
+      const deletedArtwork =
+        await this.artworksRepository.deleteById(artworkId);
+
+      res.status(200).json({ deletedArtwork });
+    } catch (error) {
+      console.log(
+        chalk.bgRed.bold.white((error as { message: string }).message),
+      );
+      const serverError = new ServerError(
+        "Failed to delete, no artwork matched provided Id",
+        404,
+      );
+      next(serverError);
+    }
+  };
+
+  getArtworkById = async (
+    req: RequestWithArtworkIdParameter,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { artworkId } = req.params;
+    try {
+      const artwork = await this.artworksRepository.getById(artworkId);
+
+      res.status(200).json({ artwork });
+    } catch (error) {
+      console.log(
+        chalk.bgRed.bold.white((error as { message: string }).message),
+      );
+      const serverError = new ServerError(
+        "Failed to find artwork with provided Id",
+        404,
+      );
       next(serverError);
     }
   };
