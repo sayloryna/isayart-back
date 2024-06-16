@@ -22,6 +22,16 @@ class ArtworksMongooseRepository implements ArtworksRepository {
 
     return deletedArtwork;
   }
+
+  async getById(artworkId: string): Promise<ArtworkStructure> {
+    const artwork = await this.model.findById(artworkId).exec();
+
+    if (!artwork) {
+      throw new Error(`Could not find artwork with ID: ${artworkId}`);
+    }
+
+    return artwork;
+  }
 }
 
 export default ArtworksMongooseRepository;
