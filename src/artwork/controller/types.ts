@@ -5,6 +5,7 @@ export interface ArtworksControllerStructure {
   getArtworks(req: Request, res: Response, next: NextFunction): void;
   createArtwork(req: Request, res: Response, next: NextFunction): void;
   deleteArtworkById(req: Request, res: Response, next: NextFunction): void;
+  getArtworkById(req: Request, res: Response, next: NextFunction): void;
 }
 
 export type ResponseWithStatusJson = Pick<Response, "status" | "json">;

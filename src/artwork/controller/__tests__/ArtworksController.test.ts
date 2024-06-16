@@ -47,6 +47,9 @@ const errorRepository: ArtworksRepository = {
   async deleteById(artworkId) {
     throw new Error(`Could not find artwork with ID: ${artworkId}`);
   },
+  async getById(artworkId: string): Promise<ArtworkStructure | Error> {
+    throw new Error(`Could not find artwork with ID: ${artworkId}`);
+  },
 };
 
 const repository: ArtworksRepository = {
@@ -57,6 +60,14 @@ const repository: ArtworksRepository = {
     return { ...artworkData, _id: majaDesnuda._id, isFavourite: false };
   },
   async deleteById(artworkId) {
+    const majaDesnuda = artworks.find((artwork) => artwork._id === artworkId);
+    if (majaDesnuda) {
+      return majaDesnuda;
+    }
+
+    throw new Error(`Could not find artwork with ID: ${artworkId}`);
+  },
+  async getById(artworkId) {
     const majaDesnuda = artworks.find((artwork) => artwork._id === artworkId);
     if (majaDesnuda) {
       return majaDesnuda;
@@ -209,12 +220,53 @@ describe("Given the deleteArtworkById method from the artworksController", () =>
 
       test("Then it should call the next function with 404 and error:'Could not find artwork with ID: majaDesnudaID'", async () => {
         const expectedError = new ServerError(
-          `Could not find artwork with ID: ${majaDesnuda._id}`,
+          "Failed to delete, no artwork matched provided Id",
           404,
         );
 
         const controller = new ArtworksController(errorRepository);
         await controller.deleteArtworkById(
+          req as RequestWithArtworkIdParameter,
+          res as Response,
+          next as NextFunction,
+        );
+        expect(next).toHaveBeenCalledWith(expectedError);
+      });
+    });
+  });
+});
+
+describe("Given the getArtworkById method from the artworksController", () => {
+  describe("When it receives de ID: 'majaDesnudaId'", () => {
+    describe("And 'la maja desnuda' with that id is in the database", () => {
+      const req: Partial<RequestWithArtworkIdParameter> = {
+        params: {
+          artworkId: majaDesnuda._id,
+        },
+      };
+
+      test("Then it should call the response status with 200 and the json with 'la maja desnuda'", async () => {
+        const expectedCode = 200;
+        const controller = new ArtworksController(repository);
+
+        await controller.getArtworkById(
+          req as RequestWithArtworkIdParameter,
+          res as Response,
+          next as NextFunction,
+        );
+
+        expect(res.status).toHaveBeenCalledWith(expectedCode);
+        expect(res.json).toHaveBeenCalledWith({ artwork: majaDesnuda });
+      });
+
+      test("Then it should call the next function with 404 and error:'Could not find artwork with ID: majaDesnudaID'", async () => {
+        const expectedError = new ServerError(
+          "Failed to find artwork with provided Id",
+          404,
+        );
+
+        const controller = new ArtworksController(errorRepository);
+        await controller.getArtworkById(
           req as RequestWithArtworkIdParameter,
           res as Response,
           next as NextFunction,
