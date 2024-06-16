@@ -105,14 +105,75 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 }
 ```
 
+## Delete Artwork by ID
+
+- **PATH:** `/artworks/artworkId`
+- **Method:** `DELETE`
+
+- **Successful Response:**
+  for artworkId:"66572c92b1ee64ca1406557b"
+
+```json
+{
+  "deletedArtwork": {
+    "_id": "66572c92b1ee64ca1406557b",
+    "title": "The mona Lisa",
+    "author": "leonardo da Vinci",
+    "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
+    "date": "1503",
+    "size": {
+      "width": 40,
+      "height": 60
+    },
+    "artworkUrl": "https:art.com/mona-lisa.jpg",
+    "location": "France",
+    "medium": "Oil on poplar panel",
+    "isFavourite": false
+  }
+}
+```
+
+## Get Artwork by ID
+
+- **PATH:** `/artworks/artworkId`
+- **Method:** `GET`
+
+- **Successful Response:**
+  for artworkId:"66572c92b1ee64ca1406557b"
+
+```json
+{
+  "deletedArtwork": {
+    "_id": "66572c92b1ee64ca1406557b",
+    "title": "The mona Lisa",
+    "author": "leonardo da Vinci",
+    "description": "Portrait of Lisa, The Gioconda, a woman smirking using the sfumatto technique",
+    "date": "1503",
+    "size": {
+      "width": 40,
+      "height": 60
+    },
+    "artworkUrl": "https:art.com/mona-lisa.jpg",
+    "location": "France",
+    "medium": "Oil on poplar panel",
+    "isFavourite": false
+  }
+}
+```
+
 ## Errors
 
-In case of errors, the API will return responses in the following format:
+In case of error, there's a GeneralError middleware that responds with following format:
 
 - **Error Response:**
-  - `error`: (Descriptive error message)
 
-And will log the errors, with extended information in the following format:
+  ```json
+  {
+    "error": "error message"
+  }
+  ```
+
+And the errors will be logged in console, with extended information in the following format:
 
 - **Error in response:**
 

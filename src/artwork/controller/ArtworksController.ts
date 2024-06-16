@@ -85,7 +85,7 @@ class ArtworksController implements ArtworksControllerStructure {
   ): Promise<void> => {
     const { artworkId } = req.params;
     try {
-      const artwork = await this.artworksRepository.deleteById(artworkId);
+      const artwork = await this.artworksRepository.getById(artworkId);
 
       res.status(200).json({ artwork });
     } catch (error) {
