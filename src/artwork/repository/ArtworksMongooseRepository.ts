@@ -19,7 +19,9 @@ class ArtworksMongooseRepository implements ArtworksRepository {
   ): Promise<ArtworkStructure> {
     const filter = artworkId;
     const update = modification;
-    const updatedArtwork = await this.model.findByIdAndUpdate(filter, update);
+    const updatedArtwork = await this.model.findOneAndUpdate(filter, update, {
+      new: true,
+    });
 
     if (!updatedArtwork) {
       throw new Error(`Could not modify artwork with ID: ${artworkId._id}`);

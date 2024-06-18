@@ -33,6 +33,10 @@ const artworkSchema = new Schema<ArtworkStructure>(
       type: String,
       default: "",
     },
+    medium: {
+      type: String,
+      default: "",
+    },
   },
   { versionKey: false },
 );

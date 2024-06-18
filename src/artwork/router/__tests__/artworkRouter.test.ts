@@ -6,6 +6,7 @@ import Artwork from "../../model/Artwork";
 import app from "../../../server/app/app";
 import type ArtworkStructure from "../../types";
 import { type ArtworkData } from "../../repository/types";
+import { type UpdateArtworkData } from "../../controller/types";
 
 let mongoMemoryServer: MongoMemoryServer;
 let serverUri: string;
@@ -39,7 +40,7 @@ const monaLisaData: ArtworkData = {
     height: 60,
   },
   location: "madrid",
-  medium: "odio sobre lienzo",
+  medium: "",
 };
 
 describe("Given the GET /artworks endpoint", () => {
@@ -79,7 +80,7 @@ describe("Given the GET /artworks endpoint", () => {
 
 describe("Given the POST /artworks endpoint", () => {
   describe("When it receives a Request with 'La mona lisa' data and 'la mona lisa' does not exist in the database", () => {
-    test("then it should respond with 200 and La mona lisa with _Id", async () => {
+    test("Then it should respond with 200 and La mona lisa with _Id and the title 'la mona lisa'", async () => {
       const expectedArtworkTitle = {
         title: monaLisaData.title,
       };
@@ -115,7 +116,7 @@ describe("Given the POST /artworks endpoint", () => {
 
   describe("When it receives a Request with 'La mona lisa' but missing an artworkUrl", () => {
     test("Then it should respond with 400 and error:'Invalid or missing artwork data'", async () => {
-      const monalisaWithoutArtworkUrl = {
+      const monalisaWithoutArtworkUrl: Omit<ArtworkData, "artworkUrl"> = {
         title: "la Mona Lisa",
         author: "Leonardo da vinci",
         description: "",
@@ -197,14 +198,49 @@ describe("Given the GET /artworks/:artworkId endpoint", () => {
     test("Then it should respond with 404 and the error 'Failed to delete, no artwork matched provided Id'", async () => {
       const notMatchingId = "67546887548029431a150393";
       const expectedError = `Failed to find artwork with provided Id`;
+      const expectedCode = 404;
 
       const response = await request(app)
         .get(`${path}/${notMatchingId}`)
-        .expect(404);
+        .expect(expectedCode);
 
       const body = response.body as { error: string };
 
       expect(body.error).toBe(expectedError);
+    });
+  });
+});
+
+describe("Given the PUT /artworks endpoint", () => {
+  describe("When it receives  Request with the 'monaLisaId' and isFavourite:true", () => {
+    test("then it should respond with  200 and the updatedArtworkd: monalisa with the property isFavourite:false", async () => {
+      const monaLisa = await Artwork.create<ArtworkData>(monaLisaData);
+      const newIsFavouriteValue = true;
+
+      const artworkId = { _id: monaLisa._id.toString() };
+      const modification = { isFavourite: newIsFavouriteValue };
+
+      const updatedMonalisa: ArtworkStructure = {
+        ...monaLisaData,
+        _id: monaLisa._id.toString(),
+        isFavourite: newIsFavouriteValue,
+      };
+
+      const requestBody: UpdateArtworkData = {
+        artworkId,
+        modification,
+      };
+
+      const response = await request(app)
+        .put(path)
+        .send(requestBody)
+        .expect(200);
+
+      const body = response.body as {
+        updatedArtwork: ArtworkStructure;
+      };
+
+      expect(body.updatedArtwork).toEqual(updatedMonalisa);
     });
   });
 });
