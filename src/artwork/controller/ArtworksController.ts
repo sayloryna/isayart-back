@@ -4,6 +4,7 @@ import {
   type RequestWithArtworkData,
   type ArtworksControllerStructure,
   type RequestWithArtworkIdParameter,
+  type RequestWithUpdateArtworkData,
 } from "./types";
 import { type ArtworksRepository } from "../repository/types";
 import ServerError from "../../server/middlewares/errors/ServerError/ServerError.js";
@@ -55,6 +56,32 @@ class ArtworksController implements ArtworksControllerStructure {
     }
   };
 
+  updateArtwork = async (
+    req: RequestWithUpdateArtworkData,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { artworkId } = req.body;
+    const { modification } = req.body;
+
+    try {
+      const updatedArtwork = await this.artworksRepository.updateArtwork(
+        artworkId,
+        modification,
+      );
+
+      res.status(200).json({ updatedArtwork });
+    } catch (error) {
+      console.log(chalk.bgRed.bold.white((error as Error).message));
+
+      const serverErrorMessage = "Failed to modify Artwork";
+
+      const serverError = new ServerError(serverErrorMessage, 409);
+
+      next(serverError);
+    }
+  };
+
   deleteArtworkById = async (
     req: RequestWithArtworkIdParameter,
     res: Response,
@@ -67,13 +94,13 @@ class ArtworksController implements ArtworksControllerStructure {
 
       res.status(200).json({ deletedArtwork });
     } catch (error) {
-      console.log(
-        chalk.bgRed.bold.white((error as { message: string }).message),
-      );
+      console.log(chalk.bgRed.bold.white((error as Error).message));
+
       const serverError = new ServerError(
         "Failed to delete, no artwork matched provided Id",
         404,
       );
+
       next(serverError);
     }
   };

@@ -13,6 +13,21 @@ class ArtworksMongooseRepository implements ArtworksRepository {
     return this.model.create(artworkData);
   }
 
+  async updateArtwork(
+    artworkId: { _id: string },
+    modification: Partial<ArtworkStructure>,
+  ): Promise<ArtworkStructure> {
+    const filter = artworkId;
+    const update = modification;
+    const updatedArtwork = await this.model.findByIdAndUpdate(filter, update);
+
+    if (!updatedArtwork) {
+      throw new Error(`Could not modify artwork with ID: ${artworkId._id}`);
+    }
+
+    return updatedArtwork;
+  }
+
   async deleteById(artworkId: string): Promise<ArtworkStructure> {
     const deletedArtwork = await this.model.findByIdAndDelete(artworkId).exec();
 
