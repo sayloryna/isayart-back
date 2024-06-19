@@ -52,7 +52,7 @@ const errorRepository: ArtworksRepository = {
     throw new Error(`Could not find artwork with ID: ${artworkId}`);
   },
   async updateArtwork(
-    _artworkId: { _id: string },
+    _artworkId: string,
     _modificaton: Partial<ArtworkStructure>,
   ): Promise<ArtworkStructure> {
     throw new Error("Function not implemented.");
@@ -84,11 +84,11 @@ const repository: ArtworksRepository = {
   },
 
   async updateArtwork(
-    artworkId: { _id: string },
+    artworkId: string,
     modificaton: Partial<ArtworkStructure>,
   ): Promise<ArtworkStructure> {
     artworks.map((artwork) => {
-      if (artwork._id === artworkId._id) {
+      if (artwork._id === artworkId) {
         const updatedArtwork = Object.assign(artwork, modificaton);
         return updatedArtwork;
       }
@@ -304,7 +304,7 @@ describe("Given the updateArtwork method from the artworksController", () => {
     const newTitle = "la maja vestidoa";
     const req: Partial<RequestWithUpdateArtworkData> = {
       body: {
-        artworkId: { _id: majaDesnuda._id },
+        _id: majaDesnuda._id,
         update: { title: newTitle },
       },
     };
@@ -334,7 +334,7 @@ describe("Given the updateArtwork method from the artworksController", () => {
 
     const req: Partial<RequestWithUpdateArtworkData> = {
       body: {
-        artworkId: { _id: majaDesnuda._id },
+        _id: majaDesnuda._id,
         update: { year: newYear },
       },
     };

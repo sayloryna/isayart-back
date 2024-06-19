@@ -26,6 +26,6 @@ export type RequestWithUpdateArtworkData = Request<
   UpdateArtworkData
 >;
 export interface UpdateArtworkData {
-  artworkId: { _id: string };
+  _id: string;
   update: Partial<ArtworkStructure>;
 }

@@ -4,7 +4,7 @@ export interface ArtworksRepository {
   getAll(): Promise<ArtworkStructure[]>;
   createArtwork(artworkData: ArtworkData): Promise<ArtworkStructure>;
   updateArtwork(
-    artworkId: { _id: string },
+    artworkId: string,
     modification: Partial<ArtworkStructure>,
   ): Promise<ArtworkStructure>;
   deleteById(artworkId: string): Promise<ArtworkStructure | Error>;

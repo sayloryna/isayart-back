@@ -211,7 +211,7 @@ describe("Given the GET /artworks/:artworkId endpoint", () => {
   });
 });
 
-describe("Given the PUT /artworks endpoint", () => {
+describe("Given the PATCH /artworks endpoint", () => {
   describe("When it receives  Request with the 'monaLisaId' and isFavourite:true", () => {
     test("Then it should respond with  200 and the updatedArtworkd: monalisa with the property isFavourite:false", async () => {
       const monaLisa = (
@@ -221,7 +221,7 @@ describe("Given the PUT /artworks endpoint", () => {
       const newIsFavouriteValue = true;
       const expectedStatus = 200;
 
-      const artworkId = { _id: monaLisa._id.toString() };
+      const _id = monaLisa._id.toString();
       const update = { isFavourite: newIsFavouriteValue };
 
       const updatedMonalisa: ArtworkStructure = {
@@ -231,12 +231,12 @@ describe("Given the PUT /artworks endpoint", () => {
       };
 
       const requestBody: UpdateArtworkData = {
-        artworkId,
+        _id,
         update,
       };
 
       const response = await request(app)
-        .put(path)
+        .patch(path)
         .send(requestBody)
         .expect(expectedStatus);
 
@@ -255,16 +255,16 @@ describe("Given the PUT /artworks endpoint", () => {
       const expectedStatus = 409;
       const expectedError = "Failed to modify Artwork";
 
-      const artworkId = { _id: wrongId };
+      const _id = wrongId;
       const update = { isFavourite: newIsFavouriteValue };
 
       const requestBody: UpdateArtworkData = {
-        artworkId,
+        _id,
         update,
       };
 
       const response = await request(app)
-        .put(path)
+        .patch(path)
         .send(requestBody)
         .expect(expectedStatus);
 

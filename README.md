@@ -108,7 +108,7 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 ## Update Artwork
 
 - **PATH:** `/artworks`
-- **Method:** `PUT`
+- **Method:** `PATCH`
 - **Request example:**
 
 ```json

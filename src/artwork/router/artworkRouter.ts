@@ -11,7 +11,7 @@ const artworksController = new ArtworksController(artworkRepository);
 
 artworkRouter.get("/", artworksController.getArtworks);
 artworkRouter.get("/:artworkId", artworksController.getArtworkById);
-artworkRouter.put("/", artworksController.updateArtwork);
+artworkRouter.patch("/", artworksController.updateArtwork);
 artworkRouter.post("/", artworksController.createArtwork);
 artworkRouter.delete("/:artworkId", artworksController.deleteArtworkById);
 

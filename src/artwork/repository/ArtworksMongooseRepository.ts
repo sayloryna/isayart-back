@@ -14,17 +14,17 @@ class ArtworksMongooseRepository implements ArtworksRepository {
   }
 
   async updateArtwork(
-    artworkId: { _id: string },
+    artworkId: string,
     update: Partial<ArtworkStructure>,
   ): Promise<ArtworkStructure> {
     const filter = artworkId;
 
-    const updatedArtwork = await this.model.findOneAndUpdate(filter, update, {
+    const updatedArtwork = await this.model.findByIdAndUpdate(filter, update, {
       new: true,
     });
 
     if (!updatedArtwork) {
-      throw new Error(`Could not modify artwork with ID: ${artworkId._id}`);
+      throw new Error(`Could not modify artwork with ID: ${artworkId}`);
     }
 
     return updatedArtwork;
