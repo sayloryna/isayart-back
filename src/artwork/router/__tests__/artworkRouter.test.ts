@@ -214,21 +214,23 @@ describe("Given the GET /artworks/:artworkId endpoint", () => {
 describe("Given the PUT /artworks endpoint", () => {
   describe("When it receives  Request with the 'monaLisaId' and isFavourite:true", () => {
     test("then it should respond with  200 and the updatedArtworkd: monalisa with the property isFavourite:false", async () => {
-      const monaLisa = await Artwork.create<ArtworkData>(monaLisaData);
+      const monaLisa = (
+        await Artwork.create<ArtworkData>(monaLisaData)
+      ).toObject();
       const newIsFavouriteValue = true;
 
       const artworkId = { _id: monaLisa._id.toString() };
-      const modification = { isFavourite: newIsFavouriteValue };
+      const update = { isFavourite: newIsFavouriteValue };
 
       const updatedMonalisa: ArtworkStructure = {
-        ...monaLisaData,
+        ...monaLisa,
         _id: monaLisa._id.toString(),
         isFavourite: newIsFavouriteValue,
       };
 
       const requestBody: UpdateArtworkData = {
         artworkId,
-        modification,
+        update,
       };
 
       const response = await request(app)

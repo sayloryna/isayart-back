@@ -15,10 +15,10 @@ class ArtworksMongooseRepository implements ArtworksRepository {
 
   async updateArtwork(
     artworkId: { _id: string },
-    modification: Partial<ArtworkStructure>,
+    update: Partial<ArtworkStructure>,
   ): Promise<ArtworkStructure> {
     const filter = artworkId;
-    const update = modification;
+
     const updatedArtwork = await this.model.findOneAndUpdate(filter, update, {
       new: true,
     });

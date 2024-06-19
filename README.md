@@ -105,6 +105,43 @@ The API is available at `http://localhost:4444` (or the port specified in your e
 }
 ```
 
+## Update Artwork
+
+- **PATH:** `/artworks`
+- **Method:** `PUT`
+- **Request example:**
+
+```json
+{
+  "_id": "666ec88286d2d52b0613eba8",
+  "update": {
+    "title": "Modified Title"
+  }
+}
+```
+
+- **Successful Response:**
+
+```json
+{
+  "updatedArtwork": {
+    "_id": "666ec88286d2d52b0613eba8",
+    "title": "Modified Title",
+    "author": "author",
+    "description": "some description",
+    "date": "1503",
+    "size": {
+      "width": 40,
+      "height": 60
+    },
+    "artworkUrl": "https:art.com/image.jpg",
+    "location": "Country",
+    "medium": "Oil on poplar panel",
+    "isFavourite": false
+  }
+}
+```
+
 ## Delete Artwork by ID
 
 - **PATH:** `/artworks/artworkId`

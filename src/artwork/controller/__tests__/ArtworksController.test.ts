@@ -305,7 +305,7 @@ describe("Given the updateArtwork method from the artworksController", () => {
     const req: Partial<RequestWithUpdateArtworkData> = {
       body: {
         artworkId: { _id: majaDesnuda._id },
-        modification: { title: newTitle },
+        update: { title: newTitle },
       },
     };
 
@@ -335,7 +335,7 @@ describe("Given the updateArtwork method from the artworksController", () => {
     const req: Partial<RequestWithUpdateArtworkData> = {
       body: {
         artworkId: { _id: majaDesnuda._id },
-        modification: { year: newYear },
+        update: { year: newYear },
       },
     };
 
