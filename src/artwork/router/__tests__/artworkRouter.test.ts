@@ -213,11 +213,13 @@ describe("Given the GET /artworks/:artworkId endpoint", () => {
 
 describe("Given the PUT /artworks endpoint", () => {
   describe("When it receives  Request with the 'monaLisaId' and isFavourite:true", () => {
-    test("then it should respond with  200 and the updatedArtworkd: monalisa with the property isFavourite:false", async () => {
+    test("Then it should respond with  200 and the updatedArtworkd: monalisa with the property isFavourite:false", async () => {
       const monaLisa = (
         await Artwork.create<ArtworkData>(monaLisaData)
       ).toObject();
+
       const newIsFavouriteValue = true;
+      const expectedStatus = 200;
 
       const artworkId = { _id: monaLisa._id.toString() };
       const update = { isFavourite: newIsFavouriteValue };
@@ -236,13 +238,41 @@ describe("Given the PUT /artworks endpoint", () => {
       const response = await request(app)
         .put(path)
         .send(requestBody)
-        .expect(200);
+        .expect(expectedStatus);
 
       const body = response.body as {
         updatedArtwork: ArtworkStructure;
       };
 
       expect(body.updatedArtwork).toEqual(updatedMonalisa);
+    });
+  });
+
+  describe("When it receives  Request with the a wrong id and isFavourite:true", () => {
+    test("then it should respond with  409 and the error: Failed to modify Artwork", async () => {
+      const wrongId = "66645859515039348029431a";
+      const newIsFavouriteValue = true;
+      const expectedStatus = 409;
+      const expectedError = "Failed to modify Artwork";
+
+      const artworkId = { _id: wrongId };
+      const update = { isFavourite: newIsFavouriteValue };
+
+      const requestBody: UpdateArtworkData = {
+        artworkId,
+        update,
+      };
+
+      const response = await request(app)
+        .put(path)
+        .send(requestBody)
+        .expect(expectedStatus);
+
+      const body = response.body as {
+        error: ArtworkStructure;
+      };
+
+      expect(body.error).toEqual(expectedError);
     });
   });
 });
