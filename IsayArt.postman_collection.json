@@ -27,7 +27,44 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"title\": \"the mona Lisa\",\r\n  \"author\": \"Leonardo da vinci\",\r\n  \"description\": \"painting of La Gioconda smiling\",\r\n  \"year\": 2024,\r\n  \"artworkUrl\": \"https://media.revistaad.es/photos/60c2230c899238f7fd38d143/1:1/w_2030,h_2030,c_limit/281373.jpg\",\r\n  \"size\": {\r\n    \"width\": 40,\r\n    \"height\": 60\r\n  },\r\n  \"location\": \"madrid\",\r\n  \"medium\": \"odio sobre lienzo\"\r\n}",
+          "raw": "{\r\n  \"title\": \"La Mona Lisa del Prado\",\r\n  \"author\": \"Desconocido\",\r\n  \"description\": \"copia del retrato de la mona lisa creado por un discípulo simultaneamente a la original\",\r\n  \"year\": 1505,\r\n  \"artworkUrl\": \"https://media.revistaad.es/photos/60c2230c899238f7fd38d143/1:1/w_2030,h_2030,c_limit/281373.jpg\",\r\n  \"size\": {\r\n    \"width\": 53,\r\n    \"height\": 79\r\n  },\r\n  \"location\": \"Paris, Francia\",\r\n  \"medium\": \"oleo sobre madera de álamo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://clara-fernandez-202403-back.onrender.com/artworks",
+          "protocol": "https",
+          "host": ["clara-fernandez-202403-back", "onrender", "com"],
+          "path": ["artworks"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "borrarMonalisa",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://clara-fernandez-202403-back.onrender.com/artworks/665ce6c919b649e012a2efe2",
+          "protocol": "https",
+          "host": ["clara-fernandez-202403-back", "onrender", "com"],
+          "path": ["artworks", "665ce6c919b649e012a2efe2"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "updateMonalisa",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"_id\":\"667292933cb867c5e6787965\",\r\n\"modification\":{\r\n    \"title\": \"La Gioconda de Madrid\"\r\n}}",
           "options": {
             "raw": {
               "language": "json"
