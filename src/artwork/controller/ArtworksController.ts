@@ -61,12 +61,12 @@ class ArtworksController implements ArtworksControllerStructure {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    const { artworkId } = req.body;
+    const { _id } = req.body;
     const { update } = req.body;
 
     try {
       const updatedArtwork = await this.artworksRepository.updateArtwork(
-        artworkId,
+        _id,
         update,
       );
 
