@@ -129,11 +129,11 @@ describe("Given the getArtworks method from the artworksController", () => {
   });
 
   describe("When it receives a Next function and the repository throws an error ", () => {
-    const controller = new ArtworksController(errorRepository);
-
     test("Then it should call the next function with a server error with the code 404 and the message 'Failed to find artworks'", async () => {
       const expectedStatus = 404;
       const expectedMessage = "Failed to find Artworks";
+
+      const controller = new ArtworksController(errorRepository);
 
       const error = new ServerError(expectedMessage, expectedStatus);
 
@@ -219,13 +219,13 @@ describe("Given the createArtwork method from the artworksController", () => {
 
 describe("Given the deleteArtworkById method from the artworksController", () => {
   describe("When it receives de ID: 'majaDesnudaId'", () => {
-    describe("And 'la maja desnuda' with that id is in the database", () => {
-      const req: Partial<RequestWithArtworkIdParameter> = {
-        params: {
-          artworkId: majaDesnuda._id,
-        },
-      };
+    const req: Partial<RequestWithArtworkIdParameter> = {
+      params: {
+        artworkId: majaDesnuda._id,
+      },
+    };
 
+    describe("And 'la maja desnuda' with that id is in the database", () => {
       test("Then it should call the response status with 200 and the json with 'la maja desnuda'", async () => {
         const expectedCode = 200;
         const controller = new ArtworksController(repository);
@@ -239,7 +239,9 @@ describe("Given the deleteArtworkById method from the artworksController", () =>
         expect(res.status).toHaveBeenCalledWith(expectedCode);
         expect(res.json).toHaveBeenCalledWith({ deletedArtwork: majaDesnuda });
       });
+    });
 
+    describe("And la the resository throws the error: 'Could not find artwork with ID: majaDesnudaID'", () => {
       test("Then it should call the next function with 404 and error:'Could not find artwork with ID: majaDesnudaID'", async () => {
         const expectedError = new ServerError(
           "Failed to delete, no artwork matched provided Id",
@@ -247,6 +249,7 @@ describe("Given the deleteArtworkById method from the artworksController", () =>
         );
 
         const controller = new ArtworksController(errorRepository);
+
         await controller.deleteArtworkById(
           req as RequestWithArtworkIdParameter,
           res as Response,
