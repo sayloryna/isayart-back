@@ -222,7 +222,3 @@ And the errors will be logged in console, with extended information in the follo
 ## Contribution
 
 If you wish to contribute to this project, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
